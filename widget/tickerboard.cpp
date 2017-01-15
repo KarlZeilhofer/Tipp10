@@ -52,7 +52,6 @@ TickerBoard::TickerBoard(QWidget *parent) : QWidget(parent) {
 	widthErrorSelection = 0;
     widthCurrentLesson = 0;
     startFlag = false;
-    colorSelection = colorCursor;
     tickerFont = QFont(FONT_STANDARD, FONT_SIZE_TICKER);
     tickerFont.setStyleStrategy(QFont::PreferAntialias);
 	QFontMetrics fm(tickerFont);
@@ -193,6 +192,7 @@ void TickerBoard::updateSelection()
 	QFontMetrics fm(tickerFont);
 	lessonOffset = fm.width(txtCurrentLesson, counterCurrentLesson+uncorrectedErrors);
 
+	// Errors will be on the left of lessonOffset
 	if(uncorrectedErrors){
 		widthErrorSelection = lessonOffset -
 				fm.width(txtCurrentLesson, counterCurrentLesson);
@@ -343,7 +343,6 @@ void TickerBoard::readSettings() {
                                     QString(TICKER_COLOR_BG)).toString());
     colorCursor = QColor(settings.value("ticker_cursor_color",
                                            QString(TICKER_COLOR_CURSOR)).toString());
-    colorSelection = colorCursor;
 	tickerFont.fromString(settings.value("ticker_font",
 		tickerFont.toString()).toString());
 	setSpeed(tickerSpeed = 50 - (settings.value("ticker_speed",

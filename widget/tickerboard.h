@@ -151,13 +151,18 @@ class TickerBoard : public QWidget {
 
 		//! Slot, changes the current char of the text.
 		/*!
-			@see changeChar(), startFlag, colorSelection
+			@see changeChar(), startFlag
 		*/
 		void getNewChar();
 
 		bool getOldChar();
 
+		//! insert wrong chars into currentLession
+		//! @see updateSelection(), uncorrectedErrors
 		void insertErrorChar(QChar ch);
+
+		//! remove wrong chars from currentLession
+		//! @see updateSelection(), uncorrectedErrors
 		void removeErrorChar();
 
 	private slots:
@@ -194,8 +199,8 @@ class TickerBoard : public QWidget {
 			This function is called in the end and stops the timer.
 
 			@param event The paint event
-			@see startFlag, tickerFont, colorSelection, scrollOffset,
-				lessonOffset, widthCurrentLesson, txtCurrentLesson,
+			@see startFlag, tickerFont, scrollOffset,
+				lessonOffset, widthErrorSelection, widthCurrentLesson, txtCurrentLesson,
 				txtPause, background
 		*/
 		void paintEvent(QPaintEvent *event);
@@ -235,10 +240,19 @@ class TickerBoard : public QWidget {
 
 		/*!
 		 * \brief Goes to previous char in currentLession
+		 *
+		 * It doesn't go back to an old currentLession.
 		 * \return true on success
 		 */
 		bool prevChar();
 
+		/*!
+		 * \brief Updates the pixel values for correct selection
+		 * of currentChar and uncorrectedErrors
+		 *
+		 * @see counterCurrentLesson, uncorrectedErrors, widthErrorSelection,
+		 * widthSelection, lessonOffset
+		 */
 		void updateSelection();
 
 		//! Splits the text into rows over a fix token.
@@ -272,6 +286,7 @@ class TickerBoard : public QWidget {
 		//! Counter of chars of the current text
 		int counterCurrentLesson;
 
+		//! Counter of incorrect chars
 		int uncorrectedErrors;
 
 		//! Counter of chars of the complete text
@@ -327,7 +342,6 @@ class TickerBoard : public QWidget {
         QColor colorFont;
         QColor colorBg;
         QColor colorCursor;
-        QColor colorSelection;
 
 		//! Background image
         QPixmap background;
