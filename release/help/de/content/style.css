@@ -1,0 +1,38 @@
+.container {
+	margin-top: 6px;
+	margin-bottom: 6px;
+	margin-left: 12px;
+	margin-right: 12px;
+}
+.headline1 {
+	font-size: 16pt; 
+	font-family: Verdana,Arial,sans-serif; 
+	color: #F97E00;
+	font-weight: bold;
+	border-bottom: 1px solid #F97E00;
+	padding-bottom: 4px;
+}
+.headline2 {
+	font-size: 13pt; 
+	font-family: Verdana,Arial,sans-serif; 
+	color: #F97E00;
+	font-weight: bold;
+}
+.standard {
+	font-size: 10pt; 
+	font-family: Verdana,Arial,sans-serif; 
+	color: rgb(0, 0, 0); 
+	font-weight: normal;
+}
+.small {
+	font-size: 8pt; 
+	font-family: Verdana,Arial,sans-serif; 
+	color: rgb(0, 0, 0); 
+	font-weight: normal;
+}
+.code {
+	font-size: 10pt; 
+	font-family: Courier New,Courier,sans-serif; 
+	color: rgb(0, 0, 0); 
+	font-weight: normal;
+}

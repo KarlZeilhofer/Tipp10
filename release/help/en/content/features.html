@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<title>TIPP10 Manual</title>
+		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body style="background-color: rgb(255, 255, 255);" bgcolor="#FFFFFF" marginheight="0" marginwidth="0" leftmargin="10" topmargin="10">
+	  <div class="container">
+		<p class="small">
+			<img src="../img/arrow_left.png" width="10" height="10" border="0">&nbsp;<a href="introduction.html">Introduction</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="../index.html">Table of Contents</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="installation.html">Installation</a>&nbsp;<img src="../img/arrow_right.png" width="10" height="10" border="0">
+		</p>
+		<p class="headline1">
+			2. General
+		</p>
+		<a name="properties"></a>
+		<p class="headline2">
+			2.1 TIPP10 Features
+		</p>
+		<p class="standard">
+			<b>2.1.1 Intelligent text selection</b><br>
+			&nbsp;<br>
+			The lesson texts react instantly to your typing mistakes by repeating mistyped letters more frequently. The system helps you eliminate typing mistakes and learn touch typing efficiently. A wide range of dictations ensures you'll never get bored.<br>
+			You will become acquainted with all the keys on the keyboard in 20 sequential training lessons. Commonly used characters are practiced earlier and more frequently than those that appear less frequently.<br>
+			&nbsp;<br>
+			&nbsp;<br>
+			<b>2.1.2 Ticker and virtual assistance keyboard</b><br>
+			&nbsp;<br>
+			You can change the font, speed and color of the text in the ticker to ensure a steady typing flow. Keys and motion paths appearing in color on a virtual keyboard help you to use the right fingers and keep the right starting position. A status bar displays the fingers that should be used, your typing errors and characters per minute.<br>
+			&nbsp;<br>
+			&nbsp;<br>
+			<b>2.1.3 Detailed results</b><br>
+			&nbsp;<br>
+			After each typing lesson you will receive a printable comprehensive report that evaluates the lesson. A list of all completed lessons including details about duration, number of errors, characters per minute and an evaluation provide you with an overview of the work you have done. A lesson trend diagram shows your progress and allows you to easily compare your results. TIPP10 also shows you your error rate for all the characters and fingers used in the typing lessons. This way you can see right away which keys and which fingers you still need to work on.<br>
+			&nbsp;<br>
+			&nbsp;<br>
+			<b>2.1.4 Open lessons and using your own texts</b><br>
+			&nbsp;<br>
+			You can use open lessons or create your own once you've got the hang of touch typing and seek to improve your error rate or speed. There are open lessons with dictations for specialized topics so that you can familiarize yourself with particular styles such as programming or legal texts. You can also load your own texts into TIPP10 and have them dictated to you.<br>
+			&nbsp;<br>
+			&nbsp;<br>
+			<b>2.1.5 Extensive customization</b><br>
+			&nbsp;<br>
+			You can choose how the lesson will run. You can set the duration of the lesson, how the typing tutor reacts to typing errors and which visual aids will support you during the lesson. In general settings you can also personalize the software even more. Here, for example, you can select a different speed for the ticker or a larger typeface.<br>
+			&nbsp;<br>
+			&nbsp;<br>
+			<b>2.1.6 Platform independent and multilingual</b><br>
+			&nbsp;<br>
+			TIPP10 runs in Windows, Mac OS X and various versions of Linux. The software is currently available in English and German and you can select various keyboard layouts. In addition to the QWERTY keyboard layout, you can also activate keyboards for Germany, for Switzerland or the alternative <i>Neo</i>, <i>Dvorak</i> and <i>RISTOME</i> keyboards. The user interface language and the language of the lesson as well as the keyboard layout can all be set separately.<br>
+			&nbsp;
+		</p>
+		<a name="requirements"></a>
+		<p class="headline2">
+			2.2 System Requirements
+		</p>
+		<p class="standard">
+			A standard computer running a Windows, Macintosh or Linux operating system is required to use TIPP10.<br>
+			The following systems are supported:<br>
+			- Windows 98, 2000, XP, Vista and 7<br>
+			- Mac OS X Version 10.3.x or higher (PPC or Intel processor)<br>
+			- Various Linux versions (Ubuntu, Kubuntu, OpenSuse, Puppy, Redhat and others)<br>
+			The computer should have sufficient memory (at least 64 MB) and processor performance (at least 800 MHz) in order to easily render the dynamic generation of the lessons. Your graphic card and monitor should also support at least 16 million colors (16 bit) and a screen resolution of at least 800x600 pixels.<br>
+			&nbsp;
+		</p>
+		<a name="database"></a>
+		<p class="headline2">
+			2.3 Users and Data
+		</p>
+		<p class="standard">
+			<a name="database_introduction"></a>
+			<b>2.3.1 Preface</b><br>
+			&nbsp;<br>
+			TIPP10 users have raised the issue of user administration. Version 1 still stores user data in a database (<i>tipp10.db</i>) that could be found in TIPP10's program directory. Unfortunately this meant that TIPP10 could only be used by one person per computer because the same database was used despite the fact that lessons, error rates and the personalized dictation per for each user were different. This kind of administration also caused problems when TIPP10 was used in a network because no write permission for the program directory had been granted.<br>
+			&nbsp;<br>
+			For this reason integrating a simple and user-friendly user administration with registration was considered. Unfortunately, registration places a host of additional demands on the software making necessary a user administration that allows for individual users to be modified or deleted. In addition, such levels of usability would make enhancements and updating the software and database significantly more difficult.<br>
+			&nbsp;<br>
+			The TIPP10 program should remain simple and easy to use. Since the majority of TIPP10 users were working with one account per computer, version 2.0 implemented the following database management alternatives:<br>
+			&nbsp;<br>
+			&nbsp;<br>
+			<a name="database_handling"></a>
+			<b>2.3.2 Portable version (Windows)</b><br>
+			&nbsp;<br>
+			The portable version of TIPP10 saves data directly in the program directory so that only one person can use it. It is, however, very convenient for portable use and can be run on several computers using a USB stick with no risk of data loss.<br>
+			&nbsp;<br>
+			The <i>tipp10v2.db</i> database with the user data and the settings.ini file with the program settings can be found in the following path in the portable version:
+		</p>
+		<p class="code">
+			<i>Application Folder</i>\portable\
+		</p>
+		<p class="standard">
+			The <i>portable</i> folder is created automatically when the program is run the first time.<br>
+			&nbsp;<br>
+			&nbsp;<br>
+			<a name="database_handling"></a>
+			<b>2.3.3 Installable version (Windows, Mac OS, Linux)</b><br>
+			&nbsp;<br>
+			The installable version of TIPP10 creates a new database (<i>tipp10v2.db</i>) in the user's <i>HOME</i> folder when the program is run the first time.<br>
+			&nbsp;<br>
+			The folder can usually be found in the following path:<br />
+			&nbsp;<br>
+			Windows:
+		</p>
+		<p class="code">
+			C:\Documents and Settings\<i>Username</i>\Application Data\TIPP10\
+		</p>
+		<p class="standard">
+			Mac OS:
+		</p>
+		<p class="code">
+			/Users/<i>Username</i>/Library/Application Support/TIPP10/
+		</p>
+		<p class="standard">
+			Linux:
+		</p>
+		<p class="code">
+			/home/<i>Username</i>/TIPP10/
+		</p>
+		<p class="standard">
+			The <i>tipp10v2.db</i> database is then placed in the <i>TIPP10</i> folder. The path can be edited so it is directed to the database in TIPP10's general settings if necessary.<br>
+			&nbsp;<br>
+			The benefits of this kind of database administration are:<br>
+			1. The "typical" TIPP10 user using one computer and one account can continue to use TIPP10 as before and can specify individually where the database is stored (e.g., for backup).<br>
+			2. Schools or other institutions with several user accounts per computer that don't use a central file server can use TIPP10 together. A database will be created in the HOME folder of each user.<br>
+			3. Using TIPP10 in a network is trouble free. The executable program is provided by the file server while the database is created and used on the client. This way write permission is granted on the database and the client can process the relatively large data transmission (due to intelligent features).<br>
+			&nbsp;<br>
+			Unfortunately this type of database administration will not work when several people use a single computer with only one user account. There is, however, a solution for this as well:<br>
+			&nbsp;<br>
+			&nbsp;<br>
+			<a name="database_handling"></a>
+			<b>2.3.4 Database path parameter transfer</b><br>
+			&nbsp;<br>
+			TIPP10 can be launched with a parameter that gives the program a current database folder. In this way it is possible for each user to create a shortcut to their own database folder.<br>
+			&nbsp;<br>
+			In Windows you add a new shortcut to the <i>tipp10.exe</i> file. In the shortcut properties you can then enter the folder as a program parameter.<br>
+			&nbsp;<br>
+			<img src="../img/h_program_shortcut.png" width="220" height="305" border="0"><br>
+			&nbsp;<br>
+			Windows example entry:
+		</p>
+		<p class="code">
+			"C:\Applications\TIPP10\tipp10.exe" "C:/tipp10/user1"
+		</p>
+		<p class="standard">
+			Please take note of the following:<br>
+			1. Command and parameter should be in quotation marks<br>
+			2. The folder uses the normal slash (/)<br>
+			3. The path indicates the database folder and not the database file itself<br>
+			4. The folder name does not have a slash at the end<br>
+			&nbsp;<br>
+			&nbsp;<br>
+			In MacOS enter the parameter after the program fetch as follows:
+		</p>
+		<p class="code">
+			./tipp10 "/tipp10/user1"
+		</p>
+		<p class="standard">
+			<img src="../img/h_terminal_mac.png" width="520" height="183" border="0"><br>
+			&nbsp;<br>
+			&nbsp;<br>
+			In Linux you also simply enter the parameter after the program fetch as follows:
+		</p>
+		<p class="code">
+			./tipp10 "/tipp10/user1"
+		</p>
+		<p class="standard">
+			&nbsp;<br>
+			The first time the program is launched with the shortcut a new database will automatically be created in the <i>user1</i> directory. Please note that the directory must already exist!<br>
+			&nbsp;
+		</p>
+		<p class="small">
+			<img src="../img/arrow_left.png" width="10" height="10" border="0">&nbsp;<a href="introduction.html">Introduction</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="../index.html">Table of Contents</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="installation.html">Installation</a>&nbsp;<img src="../img/arrow_right.png" width="10" height="10" border="0">
+		</p>
+		<p class="small">
+			&copy; 2006-2011 Tom Thielicke IT Solutions
+		</p>
+	  </div>
+	</body>
+</html>

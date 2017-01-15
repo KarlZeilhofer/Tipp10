@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=TIPP10
+Comment=Touch Typing Tutor
+Comment[de]=10-Finger-Schreibtrainer
+Exec=tipp10
+Icon=tipp10.png
+Terminal=false
+Type=Application
+Categories=Education;
