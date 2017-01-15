@@ -387,7 +387,7 @@ void TrainingWidget::setKey(QChar key) {
 					}
 					errorCorrectFlag = false;
 				}
-			}else{
+			}else if(key.unicode() != 27 && key.unicode() != 9 && key.unicode() != 13){
 				tickerBoard->insertErrorChar(key);
 				update();
 				uncorrectedErrors++;
@@ -418,7 +418,7 @@ void TrainingWidget::setKey(QChar key) {
 
 				charList << key;
 				mistakeList << 0;
-			} else {
+			} else if(key.unicode() != 27 && key.unicode() != 9 && key.unicode() != 13){
 				// Wrong key was pressed
 				if (beepOnError) {
 					if (beepSoundcard) {
