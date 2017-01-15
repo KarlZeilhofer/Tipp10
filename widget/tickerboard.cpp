@@ -39,6 +39,7 @@ TickerBoard::TickerBoard(QWidget *parent) : QWidget(parent) {
 	txtCurrentLesson = "";
 	txtCompleteLesson = "";
 	counterCurrentLesson = 0;
+	uncorrectedErrors = 0;
 	counterCompleteLesson = 0;
 	counterRow = 0;
 	lengthCurrentLesson = 0;
@@ -48,6 +49,7 @@ TickerBoard::TickerBoard(QWidget *parent) : QWidget(parent) {
 	scrollOffset = 0;
 	scrollCounter = 0;
 	widthSelection = 0;
+	widthErrorSelection = 0;
     widthCurrentLesson = 0;
     startFlag = false;
     colorSelection = colorCursor;
@@ -97,7 +99,7 @@ void TickerBoard::startTicker(bool wasPaused) {
 
 		if (tickerSpeed == 50) {
 			scrollOffset = 290;
-			scroll(-290, 0, QRect::QRect(10, 15, 590, 35)); //contentsRect());
+			scroll(-290, 0, QRect(10, 15, 590, 35)); //contentsRect());
 		}
 
 		startFlag = true;
@@ -127,13 +129,20 @@ void TickerBoard::extendTicker(QString txt, QString seperator) {
 }
 
 void TickerBoard::getNewChar() {
-    colorSelection = colorCursor;
 	if (startFlag) {
-		changeChar();
+		nextChar();
 	}
 }
 
-void TickerBoard::changeChar() {
+bool TickerBoard::getOldChar()
+{
+	if (startFlag) {
+		return prevChar();
+	}
+	return false;
+}
+
+void TickerBoard::nextChar() {
 	counterCurrentLesson++;
 	counterCompleteLesson++;
 	if (counterCompleteLesson >= lengthCompleteLesson) {
@@ -153,18 +162,44 @@ void TickerBoard::changeChar() {
 			scrollOffset = 0;
 		} else {
 			scrollOffset = 290;
-			scroll(-290, 0, QRect::QRect(10, 15, 590, 35)); //contentsRect());
+			scroll(-290, 0, QRect(10, 15, 590, 35)); //contentsRect());
 		}
 		splitLesson();
 	}
-	QFontMetrics fm(tickerFont);
-    //txtSelectionWidth = fm.width(txtLesson[txtCounter]);
-    lessonOffset = fm.width(txtCurrentLesson, counterCurrentLesson);
-	widthSelection = fm.charWidth(txtCurrentLesson, counterCurrentLesson);
+	updateSelection();
 	newChar = txtCurrentLesson[counterCurrentLesson];
 	repaint();
 	emit charChanged(newChar);
 	checkUpdateRequired();
+}
+
+bool TickerBoard::prevChar() {
+	if(counterCurrentLesson>0){
+		counterCurrentLesson--;
+		counterCompleteLesson--;
+		updateSelection();
+		newChar = txtCurrentLesson[counterCurrentLesson];
+		repaint();
+		emit charChanged(newChar);
+		checkUpdateRequired();
+		return true;
+	}
+	return false;
+}
+
+
+void TickerBoard::updateSelection()
+{
+	QFontMetrics fm(tickerFont);
+	lessonOffset = fm.width(txtCurrentLesson, counterCurrentLesson+uncorrectedErrors);
+
+	if(uncorrectedErrors){
+		widthErrorSelection = lessonOffset -
+				fm.width(txtCurrentLesson, counterCurrentLesson);
+	}else{
+		widthErrorSelection = 0;
+	}
+	widthSelection = fm.charWidth(txtCurrentLesson, counterCurrentLesson+uncorrectedErrors);
 }
 
 void TickerBoard::checkUpdateRequired() {
@@ -176,13 +211,21 @@ void TickerBoard::checkUpdateRequired() {
 	}
 }
 
-void TickerBoard::setErrorSelection() {
-	colorSelection = QColor(249, 126, 0);
+void TickerBoard::insertErrorChar(QChar ch)
+{
+	txtCurrentLesson.insert(counterCurrentLesson+uncorrectedErrors, ch);
+	uncorrectedErrors++;
+
+	updateSelection();
 	repaint();
 }
 
-void TickerBoard::clearErrorSelection() {
-    colorSelection = colorCursor;
+void TickerBoard::removeErrorChar()
+{
+	uncorrectedErrors--;
+	txtCurrentLesson.remove(counterCurrentLesson+uncorrectedErrors,1); // remove first
+
+	updateSelection();
 	repaint();
 }
 
@@ -217,11 +260,18 @@ void TickerBoard::paintEvent(QPaintEvent *event) {
 		// Draw current ticker position
 		x = 290;
 		painter.setFont(tickerFont);
-		painter.setBrush(colorSelection);
+
+		painter.setBrush(QColor(249, 126, 0));
+		painter.drawRect(10 + x - scrollOffset + lessonOffset-widthErrorSelection, 15,
+			widthErrorSelection, 35);
+
+		painter.setBrush(colorCursor);
 		painter.drawRect(10 + x - scrollOffset + lessonOffset, 15,
 			widthSelection, 35);
-        painter.setPen(colorFont);
-		painter.drawText(10 + x - scrollOffset, 15, widthCurrentLesson, 35,
+
+		painter.setPen(colorFont);
+		QFontMetrics fm(tickerFont);
+		painter.drawText(10 + x - scrollOffset, 15, fm.width(txtCurrentLesson), 35,
 			Qt::AlignVCenter, txtCurrentLesson);
 	} else {
 		// Draw pause or start text
@@ -242,7 +292,7 @@ void TickerBoard::progress() {
 
 				// Move ticker 1 pixel to left
 				scrollOffset++;
-				scroll(-1, 0, QRect::QRect(10, 15, 590, 35)); //contentsRect());
+				scroll(-1, 0, QRect(10, 15, 590, 35)); //contentsRect());
 
 				if ((lessonOffset - scrollOffset) <= 30) {
 					setSpeed(tickerSpeed);
@@ -265,14 +315,14 @@ void TickerBoard::progress() {
 			// 160 pixels overage (because the user must see at least the next word)
 			if ((lessonOffset - scrollOffset) > 200) {
 				scrollOffset += (lessonOffset - scrollOffset) - 200;
-				scroll(-((lessonOffset - scrollOffset) - 200), 0, QRect::QRect(10, 15, 590, 35)); //contentsRect());
+				scroll(-((lessonOffset - scrollOffset) - 200), 0, QRect(10, 15, 590, 35)); //contentsRect());
 			}
 		} else {
 			// If the user types faster than the ticker, move ticker faster after
 			// 160 pixels overage (because the user must see at least the next word)
 			if ((lessonOffset - scrollOffset) > 280) {
 				scrollOffset += 570;
-				scroll(-570, 0, QRect::QRect(10, 15, 590, 35)); //contentsRect());
+				scroll(-570, 0, QRect(10, 15, 590, 35)); //contentsRect());
 			}
 
 		}

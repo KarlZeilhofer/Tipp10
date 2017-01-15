@@ -155,17 +155,10 @@ class TickerBoard : public QWidget {
 		*/
 		void getNewChar();
 
-		//! Slot, changes the color of the selection (type error).
-		/*!
-			@see colorSelection
-		*/
-		void setErrorSelection();
+		bool getOldChar();
 
-		//! Slot, removes the error selection.
-		/*!
-			@see colorSelection
-		*/
-		void clearErrorSelection();
+		void insertErrorChar(QChar ch);
+		void removeErrorChar();
 
 	private slots:
 
@@ -238,7 +231,15 @@ class TickerBoard : public QWidget {
 				startFlag, lengthCompleteLesson, lengthCurrentLesson,
 				lessonOffset, widthSelection, newChar
 		*/
-		void changeChar();
+		void nextChar();
+
+		/*!
+		 * \brief Goes to previous char in currentLession
+		 * \return true on success
+		 */
+		bool prevChar();
+
+		void updateSelection();
 
 		//! Splits the text into rows over a fix token.
 		/*!
@@ -271,6 +272,8 @@ class TickerBoard : public QWidget {
 		//! Counter of chars of the current text
 		int counterCurrentLesson;
 
+		int uncorrectedErrors;
+
 		//! Counter of chars of the complete text
 		int counterCompleteLesson;
 
@@ -288,6 +291,8 @@ class TickerBoard : public QWidget {
 
 		//! Width of current char selection in pix
 		int widthSelection;
+
+		int widthErrorSelection;
 
 		//! Offset of the lesson in pix
 		int lessonOffset;

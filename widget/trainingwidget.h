@@ -190,7 +190,7 @@ class TrainingWidget : public QWidget {
 		bool beepOnError;
 		bool beepSoundcard;
 		bool errorCorrectFlag;
-		bool oneErrorFlag;
+		int uncorrectedErrors;
 		bool showStatusInformation;
 		bool showHelpers;
 		bool useIntelligence;

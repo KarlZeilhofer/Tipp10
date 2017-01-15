@@ -53,7 +53,7 @@ TrainingWidget::TrainingWidget(int lesson, int type, QString name, QWidget *pare
 	errorCorrectFlag = false;
 	startTime = QDateTime::currentDateTime();
 	counterToNewLine = 0;
-	oneErrorFlag = false;
+	uncorrectedErrors = 0;
 
     // Init sound file
     #if APP_MAC
@@ -374,29 +374,45 @@ void TrainingWidget::setChar(QChar newchar) {
 // Slot: Aktuellen Buchstaben setzen
 void TrainingWidget::setKey(QChar key) {
 	if (isStarted && !isPaused) {
-		if (errorCorrectFlag) {
+		if (uncorrectedErrors) {
 			// Ruecklauftaste
 			if (key.unicode() == 8) {
-				errorCorrectFlag = false;
-                if ((currentLesson % 100) >= NUMPAD_LESSON_START && currentType == 0) {
-					numPad->setKey(currentChar);
-				} else {
-					keyBoard->setKey(currentChar);
+				tickerBoard->removeErrorChar();
+				uncorrectedErrors--;
+				if(uncorrectedErrors == 0){
+					if ((currentLesson % 100) >= NUMPAD_LESSON_START && currentType == 0) {
+						numPad->setKey(currentChar);
+					} else {
+						keyBoard->setKey(currentChar);
+					}
+					errorCorrectFlag = false;
 				}
-				tickerBoard->clearErrorSelection();
-				oneErrorFlag = false;
+			}else{
+				tickerBoard->insertErrorChar(key);
+				update();
+				uncorrectedErrors++;
+				currentErrors++;
 			}
 		} else {
+			// if backspace was pressed and we have no uncorrected chars,
+			// we let the user do this (like in a normal texteditor):
+			if (key.unicode() == 8) {
+				if(tickerBoard->getOldChar()){
+					currentStrokes--;
+					charList.removeLast();
+					mistakeList.removeLast();
+				}
+
 			// Check if correct key was pressed OR
 			// key was enter and a line break was required
 			// (char and unicode then are different)
-			if (key == currentChar || ((key.unicode() == 13 || key.unicode() == 3) &&
+			}else if (key == currentChar || ((key.unicode() == 13 || key.unicode() == 3) &&
 				currentChar == QChar(TOKEN_NEW_LINE)) ||
 				(key.unicode() == 9 &&
 				currentChar == QChar(TOKEN_TAB))) {
 				//currentChar.unicode() == 182)) {
 				// Correct key was pressed
-				oneErrorFlag = false;
+				uncorrectedErrors = 0;
 				currentStrokes++;
 				tickerBoard->getNewChar();
 
@@ -404,50 +420,54 @@ void TrainingWidget::setKey(QChar key) {
 				mistakeList << 0;
 			} else {
 				// Wrong key was pressed
-				if (!oneErrorFlag) {
-					if (beepOnError) {
-						if (beepSoundcard) {
-							bells->play();
-						} else {
-							QApplication::beep();
-						}
-					}
-					currentErrors++;
-                    tickerBoard->setErrorSelection();
-					update();
-
-					if (key.unicode() == 13 || key.unicode() == 3) {
-						charList << QChar(TOKEN_NEW_LINE);
+				if (beepOnError) {
+					if (beepSoundcard) {
+						bells->play();
 					} else {
-						if (key.unicode() == 9) {
-							charList << QChar(TOKEN_TAB);
-						} else {
-							charList << key;
-						}
+						QApplication::beep();
 					}
-					mistakeList << 1;
-
-					if (!trainingSql->updateUsertable(currentChar,
-						"user_char_target_errornum")) {
-						// Error message
-						ErrorMessage *errorMessage = new ErrorMessage(this);
-						errorMessage->showMessage(ERR_USER_ERRORS_REFRESH,
-							TYPE_CRITICAL, CANCEL_OPERATION);
-					}
-					if (!trainingSql->updateUsertable(key,
-						"user_char_mistake_errornum")) {
-						// Error message
-						ErrorMessage *errorMessage = new ErrorMessage(this);
-						errorMessage->showMessage(ERR_USER_ERRORS_REFRESH,
-							TYPE_CRITICAL, CANCEL_OPERATION);
-					}
-					oneErrorFlag = true;
 				}
-				if (!stopOnError) {
-					oneErrorFlag = false;
+				currentErrors++;
+
+				if (stopOnError) {
+					if(correctOnError){
+						tickerBoard->insertErrorChar(key);
+						uncorrectedErrors++;
+					}
+				}else{
 					currentStrokes++;
 					tickerBoard->getNewChar();
 				}
+				update();
+
+				if (key.unicode() == 13 || key.unicode() == 3) {
+					charList << QChar(TOKEN_NEW_LINE);
+				} else {
+					if (key.unicode() == 9) {
+						charList << QChar(TOKEN_TAB);
+					} else {
+						charList << key;
+					}
+				}
+				mistakeList << 1;
+
+				if (!trainingSql->updateUsertable(currentChar,
+					"user_char_target_errornum")) {
+					// Error message
+					ErrorMessage *errorMessage = new ErrorMessage(this);
+					errorMessage->showMessage(ERR_USER_ERRORS_REFRESH,
+						TYPE_CRITICAL, CANCEL_OPERATION);
+				}
+				if (!trainingSql->updateUsertable(key,
+					"user_char_mistake_errornum")) {
+					// Error message
+					ErrorMessage *errorMessage = new ErrorMessage(this);
+					errorMessage->showMessage(ERR_USER_ERRORS_REFRESH,
+						TYPE_CRITICAL, CANCEL_OPERATION);
+				}
+
+
+
 				//statusBar->setCenterText(QString::number(key.unicode()));
 				if (correctOnError) {
 					errorCorrectFlag = true;

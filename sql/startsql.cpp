@@ -342,9 +342,9 @@ bool StartSql::updateOwnLesson(QString lessonnumber, QString lessonname,
 		}
 		// Write every line of lesson content to database
 		for (i = 0; i < content.size(); i++) {
-			//simplifiedContent = QString::QString(
+			//simplifiedContent = QString(
 			//	content.at(i)).replace(QChar(0x27), "''", Qt::CaseSensitive).simplified();
-			simplifiedContent = trim(QString::QString(
+			simplifiedContent = trim(QString(
 				content.at(i)).replace(QChar(0x27), "''", Qt::CaseSensitive));
 
 			if (!query.exec("INSERT INTO own_content VALUES(NULL,'" +
