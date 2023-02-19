@@ -236,7 +236,7 @@ void AbcRainWidget::setBall() {
 		charballs.last()->rad = 0;
 
 		chartext.append(new QGraphicsTextItem(QString(characterTemp),
-			charballs.last(), scene));
+            charballs.last()));
 		chartext.last()->setFont(QFont("Courier", 16, 100));
 		chartext.last()->setPos(-(chartext.last()->boundingRect().width() / 2), -(chartext.last()->boundingRect().height() / 2));
 

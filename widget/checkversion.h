@@ -27,8 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #ifndef CHECKVERSION_H
 #define CHECKVERSION_H
 
+#ifdef ONLINE
 #include <QHttp>
 #include <QHttpResponseHeader>
+#endif
+
 #include <QTemporaryFile>
 
 //! The CheckVersion class checks for new software version.
@@ -60,11 +63,13 @@ class CheckVersion : public QObject {
 		*/
 		void updateDataReadProgress(int bytesRead, int totalBytes);
 
+#ifdef ONLINE
 		//! Slot, http response header read.
 		/*!
 			@param responseHeader http response header
 		*/
 		void readResponseHeader(const QHttpResponseHeader &responseHeader);
+#endif
 
 		//! Slot, download has finished.
 		/*!
@@ -77,7 +82,10 @@ class CheckVersion : public QObject {
 		//! Checks wether the version is new.
         bool checkVersionFile();
 
+#ifdef ONLINE
         QHttp *http;
+#endif
+
         QTemporaryFile *tempVersionFile;
 };
 

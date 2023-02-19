@@ -43,6 +43,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "sql/startsql.h"
 #include "errormessage.h"
 
+#ifdef ONLINE
+
 // Constructor
 UpdateDialog::UpdateDialog(QWidget *parent) : QDialog(parent) {
 
@@ -53,6 +55,7 @@ UpdateDialog::UpdateDialog(QWidget *parent) : QDialog(parent) {
 
     // QHttp object provides interface to HTTP
     http = new QHttp(this);
+
 
 	// Create dialog content
 	createProgressinfo();
@@ -409,3 +412,5 @@ void UpdateDialog::writeSettings() {
 	settings.setValue("proxy_port", txtProxyPort->text());
 	settings.endGroup();
 }
+
+#endif

@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ****************************************************************/
 
 #include <QApplication>
-#include <QPlastiqueStyle>
+//#include <QPlastiqueStyle>
+#include <QStyleFactory>
 #include <QString>
 #include <QSettings>
 #include <QCoreApplication>
@@ -39,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 int main(int argc, char *argv[]) {
 
     QApplication app(argc, argv);
+    QApplication::setStyle(QStyleFactory::create("plastiquestyle"));
 
     // Set application name and domain
     // (this saves having to repeat the information

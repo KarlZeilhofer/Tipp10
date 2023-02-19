@@ -151,6 +151,7 @@ class MainWindow : public QMainWindow {
 		*/
 		void toggleStartToAbcrain();
 
+#ifdef ONLINE
 		//! Slot, shows the online update dialog.
 		/*!
 			This slot shows the online update dialog. It creates an object of
@@ -160,6 +161,7 @@ class MainWindow : public QMainWindow {
 			@see UpdateDialog, fillLessonList()
 		*/
 		void showUpdate();
+#endif
 
         void newVersionAvailable();
 

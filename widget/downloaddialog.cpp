@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "def/errordefines.h"
 #include "errormessage.h"
 
+#ifdef ONLINE
 DownloadDialog::DownloadDialog(QStringList *data, QWidget *parent) :
 	QDialog(parent) {
 
@@ -69,10 +70,14 @@ DownloadDialog::DownloadDialog(QStringList *data, QWidget *parent) :
     setMinimumSize(APP_WIDTH_STANDARD, APP_HEIGHT_STANDARD);
 }
 
+
+
 void DownloadDialog::showHelp() {
 	helpBrowser = new HelpBrowser("lessons.html#ownlesson", this);
 	helpBrowser->show();
 }
+
+
 
 void DownloadDialog::createProgressinfo() {
 
@@ -343,3 +348,5 @@ void DownloadDialog::writeSettings() {
 	settings.setValue("proxy_port", txtProxyPort->text());
 	settings.endGroup();
 }
+#endif
+

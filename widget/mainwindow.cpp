@@ -116,10 +116,7 @@ void MainWindow::closeEvent(QCloseEvent *event) {
 	}
 }
 
-bool MainWindow::checkLicenseKey(QString licenseKey) {
 
-    return false;
-}
 
 void MainWindow::createMenu() {
 	//Mac-Version:
@@ -218,12 +215,14 @@ void MainWindow::showSettings() {
 	startWidget->readSettings();
 }
 
+#ifdef ONLINE
 void MainWindow::showUpdate() {
 	UpdateDialog updateDialog(this);
 	updateDialog.exec();
 	// Fill lesson list after online update
 	startWidget->fillLessonList(false);
 }
+#endif
 
 void MainWindow::showHelp()
 {

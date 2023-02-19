@@ -3,6 +3,15 @@
 # Copyright (c) 2006-2011, Tom Thielicke IT Solutions
 ######################################################################
 
+
+DESTDIR = bin
+OBJECTS_DIR = build
+MOC_DIR = build
+RCC_DIR = build
+UI_DIR = build
+
+#DEFINES += ONLINE
+
 TEMPLATE         = 	app
 # MAC-Version:
 #ICON           =	img/tipp10.icns
@@ -16,6 +25,9 @@ INCLUDEPATH     += 	.
 CONFIG          += 	qt
 QT              += 	sql
 QT              += 	network
+QT              +=      widgets
+QT              +=      multimedia
+QT              +=      printsupport
 RC_FILE         += 	tipp10.rc
 RESOURCES       += 	tipp10.qrc
 HEADERS         += 	def/defines.h \

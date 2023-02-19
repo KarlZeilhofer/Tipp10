@@ -1047,6 +1047,7 @@ void StartWidget::clickExportLesson() {
 	out << lessonContent;
 }
 
+#ifdef ONLINE
 void StartWidget::clickDownloadLesson() {
 
 	QStringList lessonData;
@@ -1084,6 +1085,7 @@ void StartWidget::clickDownloadLesson() {
 		}
 	}
 }
+#endif
 
 void StartWidget::clickEditLesson() {
 

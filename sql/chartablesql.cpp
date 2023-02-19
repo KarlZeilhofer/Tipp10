@@ -137,7 +137,7 @@ CharTableSql::CharTableSql(QWidget *parent) : QWidget(parent) {
 	sortColumn(4);
 
 	headerview->setStretchLastSection(true);
-	headerview->setResizeMode(QHeaderView::Interactive);
+    headerview->setSectionResizeMode(QHeaderView::Interactive);
 	headerview->setSortIndicatorShown(true);
 
 	// Resize the columns

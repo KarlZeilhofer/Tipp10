@@ -29,8 +29,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 
 #include <QDialog>
 #include <QWidget>
+
+#ifdef ONLINE
 #include <QHttp>
 #include <QHttpResponseHeader>
+
+
 #include <QTemporaryFile>
 #include <QLabel>
 #include <QProgressBar>
@@ -83,8 +87,9 @@ class UpdateDialog : public QDialog {
 		//! Slot, http response header read.
 		/*!
 			@param responseHeader http response header
-		*/
+        */
 		void readResponseHeader(const QHttpResponseHeader &responseHeader);
+
 
 		//! Slot, download has finished.
 		/*!
@@ -131,7 +136,8 @@ class UpdateDialog : public QDialog {
 		//! Object of the help browser dialog
 		HelpBrowser *helpBrowser;
 
-		QHttp *http;
+
+        QHttp *http;
 		bool newVersion;
 		QTemporaryFile *tempVersionFile;
 		QTemporaryFile *tempSqlFile;
@@ -146,5 +152,5 @@ class UpdateDialog : public QDialog {
 		QLineEdit *txtProxyPort;
 		QLabel *labelProxyPort;
 };
-
+#endif // ONLINE
 #endif // UPDATEDIALOG_H

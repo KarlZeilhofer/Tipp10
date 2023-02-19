@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 // Constructor
 CheckVersion::CheckVersion()
 {
+#ifdef ONLINE
     // QHttp object provides interface to HTTP
     http = new QHttp();
 
@@ -43,10 +44,12 @@ CheckVersion::CheckVersion()
     connect(http, SIGNAL(done(bool)), this, SLOT(httpDownloadFinished(bool)));
     connect(http, SIGNAL(dataReadProgress(int, int)), this,
         SLOT(updateDataReadProgress(int, int)));
+#endif
 }
 
 void CheckVersion::checkVersion()
 {
+#ifdef ONLINE
     tempVersionFile = new QTemporaryFile;
     if (!tempVersionFile->open()) {
         return;
@@ -58,12 +61,14 @@ void CheckVersion::checkVersion()
     //http->setProxy(txtProxyServer->text(), txtProxyPort->text().toInt());
 
     http->get(UPDATE_URL_VERSION, tempVersionFile);
+#endif
 }
 
 void CheckVersion::updateDataReadProgress(int bytesRead, int totalBytes) {
 
 }
 
+#ifdef ONLINE
 void CheckVersion::readResponseHeader(const QHttpResponseHeader
         &responseHeader)
 {
@@ -72,6 +77,7 @@ void CheckVersion::readResponseHeader(const QHttpResponseHeader
         return;
     }
 }
+#endif
 
 void CheckVersion::httpDownloadFinished(bool error)
 {

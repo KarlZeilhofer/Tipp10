@@ -202,7 +202,7 @@ LessonTableSql::LessonTableSql(int row, int type, QList<QChar> charlist,
 	sortColumn(-1);
 
 	headerview->setStretchLastSection(true);
-	headerview->setResizeMode(QHeaderView::Interactive);
+    headerview->setSectionResizeMode(QHeaderView::Interactive);
 	headerview->setSortIndicatorShown(true);
 
 	// Resize the columns

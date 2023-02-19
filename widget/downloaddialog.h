@@ -29,8 +29,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 
 #include <QDialog>
 #include <QWidget>
+
+#ifdef ONLINE
 #include <QHttp>
 #include <QHttpResponseHeader>
+#endif
+
 #include <QTemporaryFile>
 #include <QPushButton>
 #include <QLabel>
@@ -42,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 
 #include "helpbrowser.h"
 
+#ifdef ONLINE
 //! The DownloadDialog class provides a license input widget.
 /*!
 	The DownloadDialog class shows a dialog to enter a license key.
@@ -72,11 +77,13 @@ class DownloadDialog : public QDialog {
 		*/
 		void updateDataReadProgress(int bytesRead, int totalBytes);
 
+#ifdef ONLINE
 		//! Slot, http response header read.
 		/*!
 			@param responseHeader http response header
 		*/
 		void readResponseHeader(const QHttpResponseHeader &responseHeader);
+#endif
 
 		//! Slot, download has finished.
 		/*!
@@ -118,7 +125,10 @@ class DownloadDialog : public QDialog {
 		//! Object of the help browser dialog
 		HelpBrowser *helpBrowser;
 
+#ifdef ONLINE
 		QHttp *http;
+#endif
+
 		QTemporaryFile *tempTxtFile;
 
 		QPushButton *buttonOk;
@@ -139,4 +149,5 @@ class DownloadDialog : public QDialog {
 		bool downloadCanceled;
 };
 
+#endif
 #endif //DOWNLOADDIALOG_H

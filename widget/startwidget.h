@@ -152,7 +152,9 @@ class StartWidget : public QWidget {
 
 		void clickExportLesson();
 
+#ifdef ONLINE
 		void clickDownloadLesson();
+#endif
 
 		void clickDeleteLesson();
 
