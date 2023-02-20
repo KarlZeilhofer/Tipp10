@@ -106,7 +106,7 @@ int main(int argc, char *argv[]) {
 	QString licenseKey = settings.value("licensekey", "").toString();
 	bool showIllustration = settings.value("check_illustration", true).toBool();
 	bool useNativeStyle = settings.value("check_native_style", false).toBool();
-	settings.endGroup();
+    settings.endGroup(); // general
 
 	// Convert old keyboard layout settings to new (since v2.1.0)
 	if (languageLayout == "") {

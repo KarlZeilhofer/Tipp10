@@ -205,11 +205,11 @@ static bool createConnection() {
 	// No user path specified or file lost
 	// (first program start oder registry was cleaned)
 	if (!dbExist) {
-		if (!APP_PORTABLE) {
+        if (APP_PORTABLE == false) {
             dbHomeTemp = QDir::homePath();
             dbFolderTemp = "tipp10";
             if (!QFile::exists(QDir::homePath() + "/" + dbFolderTemp + "/" + dbNameUser)) {
-                dbFolderTemp = "TIPP10";
+                dbFolderTemp = "tipp10";
                 #if APP_WIN
                 QSettings homeAppPath("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders", QSettings::NativeFormat);
                 dbHomeTemp = homeAppPath.value("AppData").toString();
@@ -227,7 +227,7 @@ static bool createConnection() {
 			dbPath = QCoreApplication::applicationDirPath() + "/portable/" + dbNameUser;
 		}
 		// Exist a database in user's home dir?
-		if (!QFile::exists(dbPath)) {
+        if (QFile::exists(dbPath) == false) {
 			// Exist a database template in the program dir?
 			dbPath = QCoreApplication::applicationDirPath() + "/" + dbNameTemplate;
 			//dbPath = ":/" + dbNameTemplate;
@@ -244,7 +244,7 @@ static bool createConnection() {
 				} else {
 					ErrorMessage *errorMessage = new ErrorMessage();
 					errorMessage->showMessage(ERR_SQL_DB_APP_COPY, TYPE_CRITICAL,
-						CANCEL_NO, QObject::tr("Betroffener Kopierpfad:\n") + dbPath);
+                        CANCEL_NO, QObject::tr("Betroffener Kopierpfad:\n") + dbPath + " bzw. " + dir.path());
 				}
 			} else {
 				// No database found in program dir

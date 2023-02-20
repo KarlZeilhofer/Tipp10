@@ -27,24 +27,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #define DEFINES_H
 
 // OS constants
-#define APP_WIN						true
+#define APP_WIN						false
 #define APP_MAC						false
-#define APP_X11						false
+#define APP_X11						true
 #define APP_PORTABLE				false //at least one of the 3 OS must be true too!
 
 // Languages
-#define APP_EXISTING_LANGUAGES_GUI	"de;en"
+#define APP_EXISTING_LANGUAGES_GUI	"de" // "de;en"
 #define APP_STD_LANGUAGE_GUI		"de"
 #define APP_STD_LANGUAGE_LAYOUT		"de_qwertz_win"
 #define APP_STD_LANGUAGE_LESSON		"de_de_qwertz"
 
 // Common program constants
-#define APP_ORGANIZATION 			"Tom Thielicke IT Solutions"
+#define APP_ORGANIZATION 			"tipp10"
 
 #define APP_COPYRIGHT 				"(c) 2006-2011, Tom Thielicke IT Solutions"
 #define APP_NAME_INTERN				"TIPP10"
 #define APP_NAME 					"TIPP10"
-#define APP_URL 					"http://www.tipp10.com"
+#define APP_URL 					"https://github.com/KarlZeilhofer/Tipp10"
 #define APP_DB 						"tipp10v2.template"
 #define APP_USER_DB					"tipp10v2.db"
 

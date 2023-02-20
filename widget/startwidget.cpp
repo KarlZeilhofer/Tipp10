@@ -491,7 +491,9 @@ void StartWidget::createConnections() {
 	connect(lessonNew, SIGNAL(triggered()), this, SLOT(clickNewLesson()));
 	connect(lessonImport, SIGNAL(triggered()), this, SLOT(clickImportLesson()));
 	connect(lessonExport, SIGNAL(triggered()), this, SLOT(clickExportLesson()));
-	connect(lessonDownload, SIGNAL(triggered()), this, SLOT(clickDownloadLesson()));
+#ifdef ONLINE
+    connect(lessonDownload, SIGNAL(triggered()), this, SLOT(clickDownloadLesson()));
+#endif
 	connect(lessonDel, SIGNAL(triggered()), this, SLOT(clickDeleteLesson()));
 	connect(lessonEdit, SIGNAL(triggered()), this, SLOT(clickEditLesson()));
 
